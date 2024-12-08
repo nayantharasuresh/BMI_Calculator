@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced BMI Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 20px;
+      background-image: url(./image/bgmain);
+      background-size: cover;
+    }
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 5px dotted #2c2929;
+      border-radius: 8px;
+      background-image: url(./image/bg3);
+      background-size: cover;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 25px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .category {
+      font-weight: bold;
+      font-size: 25px;
+      color: #0fbe20;
+    }
+    #font{
+        font-family: "Dancing Script", serif;
+        font-size: 35px;
+        font-weight: bold;
+        text-align: center;
+        color: rgb(2, 16, 2);
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    <h1>BMI Calculator</h1>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" placeholder="Enter your age">
+
+    <label for="gender">Gender:</label>
+    <select id="gender">
+      <option value="" disabled selected>Select your gender</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+    </select>
+
+    <label for="weight">Weight (kg):</label>
+    <input type="number" id="weight" placeholder="Enter your weight in kg">
+
+    <label for="height">Height (cm):</label>
+    <input type="number" id="height" placeholder="Enter your height in cm">
+
+    <button onclick="calculateBMI()">Calculate BMI</button>
+
+    
+  </div><br>
+  <div class="result" id="result"></div>
+  <div id="font">
+    <p>To keep the body in good health is a duty... otherwise we shall not be able </p><br>
+    <span>to keep our mind strong and clear.</span>
+  </div>
+
+  <script>
+    function calculateBMI() {
+      const age = parseInt(document.getElementById('age').value);
+      const gender = document.getElementById('gender').value;
+      const weight = parseFloat(document.getElementById('weight').value);
+      const height = parseFloat(document.getElementById('height').value) / 100; 
+      
+    
+      if (
+        isNaN(age) || age <= 0 ||
+        !gender ||
+        isNaN(weight) || weight <= 0 ||
+        isNaN(height) || height <= 0
+      ) {
+        document.getElementById('result').innerHTML = 
+          "Please provide valid inputs for all fields.";
+        return;
+      }
+
+    
+      const bmi = (weight / (height * height)).toFixed(2);
+      let category = "";
+
+      if (bmi < 18.5) {
+        category = "Underweight";
+      } else if (bmi >= 18.5 && bmi <= 24.9) {
+        category = "Normal weight";
+      } else if (bmi >= 25 && bmi <= 29.9) {
+        category = "Overweight";
+      } else {
+        category = "Obesity";
+      }
+
+     
+      document.getElementById('result').innerHTML = `
+        <p> BMI = <span>${bmi}<br></span>  <span class="category">${category}</span></p>
+      
+      `;
+    }
+  </script>
+</body>
+</html>
